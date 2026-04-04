@@ -4,8 +4,8 @@ import type { IProduct } from "../../types/product.types.ts";
 import type { IUser } from "../../types/user.types.ts";
 
 const ProductService = {
-  async getAll() {
-    const products = await Product.find()
+  async getAll(query: { category?: string }) {
+    const products = await Product.find(query)
       .sort({ created_at: -1 })
       .populate("user", "-username -phone_number");
     return products;

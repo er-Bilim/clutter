@@ -6,9 +6,15 @@ import type { RequestWithUser } from "../../middlewares/auth.ts";
 import deleteImage from "../../utils/deleteImage.ts";
 
 const ProductController = {
-  async getAll(_req: Request, res: Response, next: NextFunction) {
+  async getAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const products = await ProductService.getAll();
+      const query: { category?: string } = {};
+
+      if (req.query.category) {
+        query.category = req.query.category as string;
+      }
+
+      const products = await ProductService.getAll(query);
       return res.json(products);
     } catch (error) {
       next(error);
