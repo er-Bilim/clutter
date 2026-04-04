@@ -9,7 +9,7 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
       <Header />
       <Box sx={{ flexGrow: 1 }} component="main">
         <ContainerUI>
-          <Box sx={{ marginTop: "150px" }}>{children}</Box>
+          <Box sx={{ mt: "150px", mb: "100px" }}>{children}</Box>
         </ContainerUI>
       </Box>
     </>

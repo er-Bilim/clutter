@@ -6,11 +6,17 @@ import { isAxiosError } from "axios";
 
 export const getAllProducts = createAsyncThunk<
   IProduct[],
-  void,
+  string | null,
   { rejectValue: IGlobalError }
->("product/getAll", async (_, { rejectWithValue }) => {
+>("product/getAll", async (category, { rejectWithValue }) => {
   try {
-    const response = await axiosApi.get<IProduct[]>("/products");
+    let url: string = "/products";
+
+    if (category) {
+      url += `?category=${category}`;
+    }
+
+    const response = await axiosApi.get<IProduct[]>(url);
     const data = response.data;
     return data;
   } catch (error) {

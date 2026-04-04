@@ -13,16 +13,29 @@ import { getAllProducts } from "../../../entities/product/model/thunk";
 import Loader from "../../../shared/ui/Loader/Loader";
 import Typography from "@mui/material/Typography";
 import ProductCard from "../../../entities/product/ui/ProductCard/ProductCard";
+import { selectCategories } from "../../../entities/category/model/selectors";
+import { getCategories } from "../../../entities/category/model/thunk";
+import { useSearchParams } from "react-router-dom";
+import CategoryNavigation from "../../../shared/ui/CategoryNavigation/CategoryNavigation";
 
 const ProductList = () => {
+  const [queryParams] = useSearchParams();
+  const categoryQuery: string | null = queryParams.get("category");
+
   const dispatch = useAppDispatch();
+  const categories = useAppSelector(selectCategories);
+
   const products = useAppSelector(selectProducts);
   const { fetchLoading } = useAppSelector(selectLoading);
   const { fetchError } = useAppSelector(selectError);
 
   useEffect(() => {
-    dispatch(getAllProducts());
-  }, [dispatch]);
+    dispatch(getAllProducts(categoryQuery));
+
+    if (categories.length === 0) {
+      dispatch(getCategories());
+    }
+  }, [dispatch, categoryQuery, categories]);
 
   const renderContent = () => {
     if (fetchLoading) {
@@ -48,14 +61,21 @@ const ProductList = () => {
 
   return (
     <>
+      <Box>
+        <CategoryNavigation
+          categories={categories}
+          categoryQuery={categoryQuery}
+        />
+      </Box>
       <Box
         sx={{
           position: "relative",
           display: "flex",
           flexDirection: "row",
           flexWrap: "wrap",
-          gap: 3,
+          gap: 6,
           alignItems: "center",
+          mt: 5,
         }}
       >
         {renderContent()}
