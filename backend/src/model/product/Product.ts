@@ -16,8 +16,8 @@ const ProductSchema = new Schema({
       message: "User not found",
     },
   },
-  category_id: {
-    type: Schema.Types.ObjectId,
+  category: {
+    type: String,
     ref: "Category",
     required: true,
     validate: {

@@ -22,7 +22,7 @@ const ProductController = {
 
       const correctProductData = {
         user_id: user.id,
-        category_id: body.category_id,
+        category: body.category,
         title: body.title,
         description: body.description,
         price: body.price,
