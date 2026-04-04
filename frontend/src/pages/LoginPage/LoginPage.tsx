@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-
+import LoginForm from "../../features/auth/ui/forms/LoginForm/LoginForm";
 
 const LoginPage = () => {
   return (
@@ -12,7 +12,7 @@ const LoginPage = () => {
         transform: "translate(-50%, -50%)",
       }}
     >
-
+      <LoginForm />
     </Box>
   );
 };

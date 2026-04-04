@@ -1,4 +1,5 @@
 import Box from "@mui/material/Box";
+import RegisterForm from "../../features/auth/ui/forms/RegisterForm/RegisterForm";
 
 const RegisterPage = () => {
   return (
@@ -10,7 +11,9 @@ const RegisterPage = () => {
         left: "50%",
         transform: "translate(-50%, -50%)",
       }}
-    ></Box>
+    >
+      <RegisterForm />
+    </Box>
   );
 };
 
