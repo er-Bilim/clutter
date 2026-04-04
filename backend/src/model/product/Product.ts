@@ -21,8 +21,8 @@ const ProductSchema = new Schema({
     ref: "Category",
     required: true,
     validate: {
-      validator: async (category_id: string): Promise<boolean> => {
-        const category = await Category.exists({ _id: category_id });
+      validator: async (category_name: string): Promise<boolean> => {
+        const category = await Category.exists({ name: category_name });
         return Boolean(category);
       },
       message: "Category not found",

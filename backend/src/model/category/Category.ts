@@ -6,6 +6,14 @@ const CategorySchema = new Schema({
     required: true,
     minLength: [3, "Name must be at least 3 characters long"],
     maxLength: [70, "Name must be at most 70 characters long"],
+    unique: true,
+    validate: {
+      validator: async (name: string): Promise<boolean> => {
+        const category = await Category.exists({ name: name });
+        return !category;
+      },
+      message: "Category already exists",
+    },
   },
   description: {
     type: String,
