@@ -9,6 +9,8 @@ import { register } from "../../../model/thunks";
 import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 
 const schemaRegister = z.object({
   username: z
@@ -71,6 +73,32 @@ const RegisterForm = () => {
         padding: "20px",
       }}
     >
+      <Box
+        sx={{
+          textAlign: "center",
+          marginBottom: "40px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
+        <ArrowCircleUpIcon
+          sx={{
+            color: grey[900],
+            fontSize: "60px",
+          }}
+        />
+        <Typography
+          component="p"
+          sx={{
+            textTransform: "uppercase",
+            letterSpacing: 4,
+          }}
+        >
+          Sign up
+        </Typography>
+      </Box>
       <Box component="form" onSubmit={handleSubmit(registerSubmit)}>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <TextField
@@ -127,7 +155,7 @@ const RegisterForm = () => {
           variant="contained"
           sx={{ mt: 2, width: "100%", background: grey[900] }}
         >
-          Register
+          Sign up
         </Button>
       </Box>
     </Box>

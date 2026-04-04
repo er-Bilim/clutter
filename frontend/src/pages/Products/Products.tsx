@@ -1,10 +1,10 @@
-import React from 'react';
+import ProductList from "../../widgets/productList/ui/ProductList";
 
 const Products = () => {
   return (
-    <div>
-      
-    </div>
+    <>
+      <ProductList />
+    </>
   );
 };
 

@@ -9,6 +9,8 @@ import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import type { ILoginMutation } from "../../../model/types";
+import Typography from "@mui/material/Typography";
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 
 const schemaLogin = z.object({
   username: z
@@ -58,6 +60,32 @@ const LoginForm = () => {
         padding: "20px",
       }}
     >
+      <Box
+        sx={{
+          textAlign: "center",
+          marginBottom: "40px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
+        <ArrowCircleDownIcon
+          sx={{
+            color: grey[900],
+            fontSize: "60px",
+          }}
+        />
+        <Typography
+          component="p"
+          sx={{
+            textTransform: "uppercase",
+            letterSpacing: 4,
+          }}
+        >
+          Sign in
+        </Typography>
+      </Box>
       <Box component="form" onSubmit={handleSubmit(LoginSubmit)}>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <TextField
@@ -90,7 +118,7 @@ const LoginForm = () => {
           variant="contained"
           sx={{ mt: 2, width: "100%", background: grey[900] }}
         >
-          Login
+          Sign in
         </Button>
       </Box>
     </Box>

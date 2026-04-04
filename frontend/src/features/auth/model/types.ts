@@ -7,6 +7,11 @@ export interface IUser {
   token: string;
 }
 
+export interface IUserShow {
+  _id: string;
+  display_name: string;
+}
+
 export interface IRegisterMutation {
   username: string;
   password: string;
