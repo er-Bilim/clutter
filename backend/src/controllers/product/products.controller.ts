@@ -3,6 +3,7 @@ import ProductService from "../../services/product/products.service.ts";
 import type { IProduct } from "../../types/product.types.ts";
 import { Error } from "mongoose";
 import type { RequestWithUser } from "../../middlewares/auth.ts";
+import deleteImage from "../../utils/deleteImage.ts";
 
 const ProductController = {
   async getAll(_req: Request, res: Response, next: NextFunction) {
@@ -16,23 +17,23 @@ const ProductController = {
 
   async create(req: Request, res: Response, next: NextFunction) {
     const body: IProduct = req.body;
+    const userReq = req as RequestWithUser;
+    const user = userReq.user;
+
+    const correctProductData = {
+      user_id: user.id,
+      category: body.category,
+      title: body.title,
+      description: body.description,
+      price: body.price,
+      image: req.file ? `/images/${req.file.filename}` : null,
+    };
     try {
-      const userReq = req as RequestWithUser;
-      const user = userReq.user;
-
-      const correctProductData = {
-        user_id: user.id,
-        category: body.category,
-        title: body.title,
-        description: body.description,
-        price: body.price,
-        image: req.file ? `/images/${req.file.filename}` : null,
-      };
-
       const product = await ProductService.create(correctProductData);
 
       return res.json(product);
     } catch (error) {
+      await deleteImage(correctProductData, req);
       if (error instanceof Error.ValidationError) {
         return res.status(400).json(error);
       }
@@ -51,6 +52,7 @@ const ProductController = {
           error: "Product not found",
         });
       }
+      await deleteImage({ image: product.image }, req);
 
       return res.json({
         message: "Product deleted successfully",
