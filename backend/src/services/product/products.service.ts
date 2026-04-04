@@ -5,12 +5,15 @@ import type { IUser } from "../../types/user.types.ts";
 
 const ProductService = {
   async getAll() {
-    const products = await Product.find();
+    const products = await Product.find()
+      .sort({ created_at: -1 })
+      .populate("user", "-username -phone_number");
     return products;
   },
 
   async create(data: IProduct) {
     const product = new Product(data);
+    product.populate("user", "-username -phone_number");
     return await product.save();
   },
 

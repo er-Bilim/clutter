@@ -3,7 +3,7 @@ import User from "../user/User.ts";
 import Category from "../category/Category.ts";
 
 const ProductSchema = new Schema({
-  user_id: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
@@ -49,6 +49,10 @@ const ProductSchema = new Schema({
   image: {
     type: String,
     required: false,
+  },
+  created_at: {
+    type: Date,
+    default: Date.now,
   },
 });
 

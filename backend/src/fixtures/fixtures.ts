@@ -65,7 +65,7 @@ const run = async () => {
 
     await Product.create(
       {
-        user_id: polskyBobr!._id,
+        user: polskyBobr!._id,
         category: cheese!.name,
         title: "Cheese 1",
         description: "Cheese 1 description",
@@ -73,7 +73,7 @@ const run = async () => {
         image: `${fixtureImagesPath}/cheese1.png`,
       },
       {
-        user_id: polskyBobr!._id,
+        user: polskyBobr!._id,
         category: cheese!.name,
         title: "Cheese 2",
         description: "Cheese 2 description",
@@ -81,7 +81,7 @@ const run = async () => {
         image: `${fixtureImagesPath}/cheese2.png`,
       },
       {
-        user_id: cheeseNagibator!._id,
+        user: cheeseNagibator!._id,
         category: electronics!.name,
         title: "Electronics 1",
         description: "Electronics 1 description",
@@ -89,7 +89,7 @@ const run = async () => {
         image: `${fixtureImagesPath}/electronics1.png`,
       },
       {
-        user_id: cheeseNagibator!._id,
+        user: cheeseNagibator!._id,
         category: electronics!.name,
         title: "Electronics 2",
         description: "Electronics 2 description",
@@ -97,7 +97,7 @@ const run = async () => {
         image: `${fixtureImagesPath}/electronics2.png`,
       },
       {
-        user_id: capybara!._id,
+        user: capybara!._id,
         category: home!.name,
         title: "Home 1",
         description: "Home 1 description",
@@ -105,7 +105,7 @@ const run = async () => {
         image: `${fixtureImagesPath}/home1.png`,
       },
       {
-        user_id: capybara!._id,
+        user: capybara!._id,
         category: home!.name,
         title: "Home 2",
         description: "Home 2 description",
@@ -113,7 +113,7 @@ const run = async () => {
         image: `${fixtureImagesPath}/home2.png`,
       },
       {
-        user_id: capybara!._id,
+        user: capybara!._id,
         category: sport!.name,
         title: "Sport 1",
         description: "Sport 1 description",

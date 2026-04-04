@@ -1,5 +1,5 @@
 export interface IProduct {
-  user_id: string;
+  user: string;
   category: string;
   title: string;
   description: string | null;

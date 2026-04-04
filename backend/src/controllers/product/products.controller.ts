@@ -21,7 +21,7 @@ const ProductController = {
     const user = userReq.user;
 
     const correctProductData = {
-      user_id: user.id,
+      user: user.id,
       category: body.category,
       title: body.title,
       description: body.description,
