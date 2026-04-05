@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import ProductService from "../../services/product/products.service.ts";
 import type { IProduct } from "../../types/product.types.ts";
-import { Error } from "mongoose";
+import { Error, isValidObjectId } from "mongoose";
 import type { RequestWithUser } from "../../middlewares/auth.ts";
 import deleteImage from "../../utils/deleteImage.ts";
 
@@ -16,6 +16,23 @@ const ProductController = {
 
       const products = await ProductService.getAll(query);
       return res.json(products);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async getById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const product_id = req.params.id as string;
+      const product = await ProductService.getById(product_id);
+
+      if (!isValidObjectId(product_id)) {
+        return res.status(400).json({
+          error: "invalid id",
+        });
+      }
+
+      return res.json(product);
     } catch (error) {
       next(error);
     }

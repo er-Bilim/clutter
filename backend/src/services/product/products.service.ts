@@ -11,6 +11,11 @@ const ProductService = {
     return products;
   },
 
+  async getById(product_id: string) {
+    const product = await Product.findById(product_id).populate("user");
+    return product;
+  },
+
   async create(data: IProduct) {
     const product = new Product(data);
     product.populate("user", "-username -phone_number");
