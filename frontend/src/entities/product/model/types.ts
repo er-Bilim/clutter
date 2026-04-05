@@ -5,7 +5,7 @@ export interface IProduct {
   user: IUserShow;
   category: string;
   title: string;
-  description: string | null;
+  description: string;
   price: number;
-  image: string | null;
+  image: string;
 }

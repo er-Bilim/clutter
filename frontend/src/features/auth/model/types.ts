@@ -10,6 +10,7 @@ export interface IUser {
 export interface IUserShow {
   _id: string;
   display_name: string;
+  phone_number: string;
 }
 
 export interface IRegisterMutation {

@@ -29,3 +29,23 @@ export const getAllProducts = createAsyncThunk<
     throw error;
   }
 });
+
+export const getProductByID = createAsyncThunk<
+  IProduct,
+  string,
+  { rejectValue: IGlobalError }
+>("product/getProductByID", async (product_id, { rejectWithValue }) => {
+  try {
+    const response = await axiosApi.get<IProduct>(`/products/${product_id}`);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      if (error.response) {
+        rejectWithValue(error.response.data);
+      }
+    }
+
+    throw error;
+  }
+});

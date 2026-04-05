@@ -13,6 +13,7 @@ const ProductPrice: FC<IProductPriceProps> = ({ price, currency }) => {
       component={"p"}
       sx={{
         fontWeight: 600,
+        fontSize: "inherit",
         ...typographyStyle,
       }}
     >

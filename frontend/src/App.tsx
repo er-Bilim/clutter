@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import ProtectedRouter from "./app/providers/router/ProtectedRouter";
 import { useAppSelector } from "./shared/lib/redux/hooks";
 import { selectUser } from "./features/auth/model/selectors";
+import DetailProduct from "./pages/Products/DetailProduct";
 
 const App = () => {
   const user = useAppSelector(selectUser);
@@ -15,7 +16,7 @@ const App = () => {
       <MainLayout>
         <Routes>
           <Route path="/" element={<Products />} />
-
+          <Route path="/product/:id" element={<DetailProduct />} />
           <Route
             path="/signup"
             element={

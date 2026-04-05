@@ -15,7 +15,7 @@ import Typography from "@mui/material/Typography";
 import ProductCard from "../../../entities/product/ui/product/ProductCard/ProductCard";
 import { selectCategories } from "../../../entities/category/model/selectors";
 import { getCategories } from "../../../entities/category/model/thunk";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import CategoryNavigation from "../../../shared/ui/CategoryNavigation/CategoryNavigation";
 
 const ProductList = () => {
@@ -53,7 +53,22 @@ const ProductList = () => {
     return (
       <>
         {products.map((product) => (
-          <ProductCard key={product._id} product={product} />
+          <Box
+            component={Link}
+            key={product._id}
+            to={`product/${product._id}`}
+            sx={{
+              position: "relative",
+              textDecoration: "none",
+              transition: "bottom 0.3s ease",
+              bottom: 0,
+              "&:hover": {
+                bottom: "20px",
+              },
+            }}
+          >
+            <ProductCard product={product} />
+          </Box>
         ))}
       </>
     );
