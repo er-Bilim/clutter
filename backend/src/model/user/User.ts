@@ -73,7 +73,7 @@ UserSchema.pre("save", async function () {
 
 UserSchema.set("toJSON", {
   transform: (_doc, ret, _options) => {
-    const { password, token, __v, ...user } = ret;
+    const { password, __v, ...user } = ret;
     return user;
   },
 });
