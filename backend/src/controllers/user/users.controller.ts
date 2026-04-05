@@ -2,6 +2,7 @@ import type { NextFunction, Request, Response } from "express";
 import type { IUserRegister } from "../../types/user.types.ts";
 import UsersService from "../../services/user/users.service.ts";
 import { Error } from "mongoose";
+import type { RequestWithUser } from "../../middlewares/auth.ts";
 
 const UsersController = {
   async registration(req: Request, res: Response, next: NextFunction) {
@@ -50,6 +51,20 @@ const UsersController = {
       }
 
       return res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async logout(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { user } = req as RequestWithUser;
+
+      UsersService.logout(user);
+
+      res.json({
+        message: "Logged out successfully",
+      });
     } catch (error) {
       next(error);
     }

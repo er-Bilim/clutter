@@ -1,5 +1,6 @@
+import type { HydratedDocument } from "mongoose";
 import User from "../../model/user/User.ts";
-import type { IUserRegister } from "../../types/user.types.ts";
+import type { IUser, IUserRegister } from "../../types/user.types.ts";
 
 const UsersService = {
   async registration(data: IUserRegister) {
@@ -27,6 +28,11 @@ const UsersService = {
     }
 
     return data;
+  },
+
+  async logout(user: HydratedDocument<IUser>) {
+    user.token = "";
+    user.save();
   },
 };
 
