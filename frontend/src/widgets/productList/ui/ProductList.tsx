@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { getAllProducts } from "../../../entities/product/model/thunk";
 import Loader from "../../../shared/ui/Loader/Loader";
 import Typography from "@mui/material/Typography";
-import ProductCard from "../../../entities/product/ui/ProductCard/ProductCard";
+import ProductCard from "../../../entities/product/ui/product/ProductCard/ProductCard";
 import { selectCategories } from "../../../entities/category/model/selectors";
 import { getCategories } from "../../../entities/category/model/thunk";
 import { useSearchParams } from "react-router-dom";
