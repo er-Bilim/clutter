@@ -4,17 +4,19 @@ import type {
   IValidationError,
 } from "../../../shared/types/error.types";
 import type { IProduct } from "./types";
-import { getAllProducts, getProductByID } from "./thunk";
+import { deleteProduct, getAllProducts, getProductByID } from "./thunk";
 
 interface ProductState {
   products: IProduct[];
   product: IProduct | null;
   loading: {
     fetchLoading: boolean;
+    deleteLoading: boolean;
     createLoading: boolean;
   };
   errors: {
     createError: IValidationError | null;
+    deleteError: IGlobalError | null;
     fetchError: IGlobalError | null;
   };
 }
@@ -24,10 +26,12 @@ const initialState: ProductState = {
   product: null,
   loading: {
     fetchLoading: false,
+    deleteLoading: false,
     createLoading: false,
   },
   errors: {
     fetchError: null,
+    deleteError: null,
     createError: null,
   },
 };
@@ -66,6 +70,19 @@ export const productSlice = createSlice({
     builder.addCase(getProductByID.rejected, (state, { payload: error }) => {
       state.loading.fetchLoading = false;
       state.errors.fetchError = error || null;
+    });
+
+    builder.addCase(deleteProduct.pending, (state) => {
+      state.loading.deleteLoading = true;
+      state.errors.deleteError = null;
+    });
+    builder.addCase(deleteProduct.fulfilled, (state) => {
+      state.product = null;
+      state.loading.deleteLoading = false;
+    });
+    builder.addCase(deleteProduct.rejected, (state, { payload: error }) => {
+      state.loading.deleteLoading = false;
+      state.errors.deleteError = error || null;
     });
   },
 });

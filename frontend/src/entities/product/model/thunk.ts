@@ -3,6 +3,8 @@ import type { IProduct } from "./types";
 import axiosApi from "../../../shared/api/axiosApi";
 import type { IGlobalError } from "../../../shared/types/error.types";
 import { isAxiosError } from "axios";
+import type { RootState } from "../../../app/store/store";
+import { toast } from "react-toastify";
 
 export const getAllProducts = createAsyncThunk<
   IProduct[],
@@ -49,3 +51,30 @@ export const getProductByID = createAsyncThunk<
     throw error;
   }
 });
+
+export const deleteProduct = createAsyncThunk<
+  void,
+  string,
+  { state: RootState; rejectValue: IGlobalError }
+>(
+  "product/deleteProduct",
+  async (product_id, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().auth.user?.token;
+      console.log(token);
+      
+      const response = await axiosApi.delete(`/products/${product_id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast.success(response.data.message);
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response) {
+          rejectWithValue(error.response.data);
+        }
+      }
+
+      throw error;
+    }
+  },
+);
