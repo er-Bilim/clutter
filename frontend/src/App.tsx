@@ -7,6 +7,7 @@ import ProtectedRouter from "./app/providers/router/ProtectedRouter";
 import { useAppSelector } from "./shared/lib/redux/hooks";
 import { selectUser } from "./features/auth/model/selectors";
 import DetailProduct from "./pages/Products/DetailProduct";
+import NotFound from "./shared/ui/NotFound/NotFound";
 
 const App = () => {
   const user = useAppSelector(selectUser);
@@ -33,6 +34,7 @@ const App = () => {
               </ProtectedRouter>
             }
           />
+          <Route path="*" element={<NotFound/>}/>
         </Routes>
       </MainLayout>
     </>
