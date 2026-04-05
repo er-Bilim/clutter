@@ -63,7 +63,7 @@ const RegisterForm = () => {
 
   const registerSubmit = async (data: IUserRegister) => {
     try {
-      await dispatch(register(data));
+      await dispatch(register(data)).unwrap();
       navigate("/");
     } catch (error) {
       console.error(error);

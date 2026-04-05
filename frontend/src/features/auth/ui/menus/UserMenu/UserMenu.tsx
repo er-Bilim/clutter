@@ -22,9 +22,7 @@ const UserMenu = () => {
   const handleLogout = () => {
     try {
       dispatch(logout()).unwrap();
-      if (!logoutError) {
-        dispatch(unsetUser());
-      }
+      dispatch(unsetUser());
     } catch (error) {
       console.error(error);
     }

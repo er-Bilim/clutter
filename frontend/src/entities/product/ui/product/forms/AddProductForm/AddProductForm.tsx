@@ -77,10 +77,8 @@ const AddProductForm = () => {
 
   const createProductSubmit = async (data: IProductMutation) => {
     try {
-      await dispatch(createProduct(data));
-      if (!createError) {
-        navigate("/");
-      }
+      await dispatch(createProduct(data)).unwrap();
+      navigate("/");
     } catch (error) {
       console.error(error);
     }

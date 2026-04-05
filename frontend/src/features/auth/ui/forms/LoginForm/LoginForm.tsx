@@ -14,7 +14,10 @@ import { useNavigate } from "react-router-dom";
 import type { ILoginMutation } from "../../../model/types";
 import Typography from "@mui/material/Typography";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import { selectLoginLoading } from "../../../model/selectors";
+import { selectLoginError, selectLoginLoading } from "../../../model/selectors";
+import Alert from "@mui/material/Alert";
+import { clearLoginError } from "../../../model/slice";
+import { useEffect } from "react";
 
 const schemaLogin = z.object({
   username: z
@@ -38,6 +41,7 @@ type RegisterFormData = z.infer<typeof schemaLogin>;
 const LoginForm = () => {
   const dispatch = useAppDispatch();
   const loginLoading = useAppSelector(selectLoginLoading);
+  const loginError = useAppSelector(selectLoginError);
   const navigate = useNavigate();
 
   const {
@@ -48,10 +52,14 @@ const LoginForm = () => {
     resolver: zodResolver(schemaLogin),
   });
 
+  useEffect(() => {
+    dispatch(clearLoginError());
+  }, [dispatch]);
+
   const LoginSubmit = async (data: ILoginMutation) => {
     try {
-      await dispatch(login(data));
-      navigate("/");
+      await dispatch(login(data)).unwrap();
+      return navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -91,6 +99,18 @@ const LoginForm = () => {
           Sign in
         </Typography>
       </Box>
+      {loginError && (
+        <Alert
+          severity="error"
+          sx={{
+            mt: 3,
+            mb: 3,
+            width: "100%",
+          }}
+        >
+          {loginError.error}
+        </Alert>
+      )}
       <Box component="form" onSubmit={handleSubmit(LoginSubmit)}>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <TextField

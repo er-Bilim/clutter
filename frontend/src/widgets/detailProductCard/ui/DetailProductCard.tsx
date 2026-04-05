@@ -42,7 +42,7 @@ const DetailProductCard = () => {
   const navigate = useNavigate();
 
   const handleDeleteProduct = async (product_id: string) => {
-    await dispatch(deleteProduct(product_id));
+    await dispatch(deleteProduct(product_id)).unwrap();
     navigate("/");
   };
 
@@ -52,7 +52,7 @@ const DetailProductCard = () => {
 
   useEffect(() => {
     if (product_id) {
-      dispatch(getProductByID(product_id));
+      dispatch(getProductByID(product_id)).unwrap();
     }
   }, [product_id, dispatch]);
 

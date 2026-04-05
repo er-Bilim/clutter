@@ -38,7 +38,7 @@ export const login = createAsyncThunk<
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      if (error.response && error.status === 400) {
+      if (error.response) {
         return rejectWithValue(error.response.data);
       }
     }

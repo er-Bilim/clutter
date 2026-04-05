@@ -30,10 +30,10 @@ const ProductList = () => {
   const { fetchError } = useAppSelector(selectError);
 
   useEffect(() => {
-    dispatch(getAllProducts(categoryQuery));
+    dispatch(getAllProducts(categoryQuery)).unwrap();
 
     if (categories.length === 0) {
-      dispatch(getCategories());
+      dispatch(getCategories()).unwrap();
     }
   }, [dispatch, categoryQuery, categories]);
 
