@@ -4,7 +4,7 @@ import type {
   IValidationError,
 } from "../../../shared/types/error.types";
 import type { IUser } from "./types";
-import { login, register } from "./thunks";
+import { login, logout, register } from "./thunks";
 
 interface AuthState {
   user: IUser | null;
@@ -17,7 +17,7 @@ interface AuthState {
   loginLoading: boolean;
   loginError: IGlobalError | null;
 
-  logoutError: IGlobalError | boolean;
+  logoutError: IGlobalError | null;
 }
 
 const initialState: AuthState = {
@@ -27,7 +27,7 @@ const initialState: AuthState = {
   registerError: null,
   loginLoading: false,
   loginError: null,
-  logoutError: false,
+  logoutError: null,
 };
 
 export const authSlice = createSlice({
@@ -67,6 +67,20 @@ export const authSlice = createSlice({
     builder.addCase(login.rejected, (state, { payload: error }) => {
       state.loginLoading = false;
       state.loginError = error || null;
+    });
+
+    builder.addCase(logout.pending, (state) => {
+      state.logoutError = null;
+      state.logoutLoading = true;
+    });
+
+    builder.addCase(logout.fulfilled, (state) => {
+      state.loginLoading = false;
+    });
+
+    builder.addCase(logout.rejected, (state, { payload: error }) => {
+      state.logoutLoading = false;
+      state.logoutError = error || null;
     });
   },
 });

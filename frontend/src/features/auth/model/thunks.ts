@@ -6,6 +6,8 @@ import type {
 import type { ILoginMutation, IRegisterMutation, IUser } from "./types";
 import axiosApi from "../../../shared/api/axiosApi";
 import { isAxiosError } from "axios";
+import type { RootState } from "../../../app/store/store";
+import { toast } from "react-toastify";
 
 export const register = createAsyncThunk<
   IUser,
@@ -38,6 +40,29 @@ export const login = createAsyncThunk<
     if (isAxiosError(error)) {
       if (error.response && error.status === 400) {
         return rejectWithValue(error.response.data);
+      }
+    }
+
+    throw error;
+  }
+});
+
+export const logout = createAsyncThunk<
+  void,
+  void,
+  { state: RootState; rejectValue: IGlobalError }
+>("users/logout", async (_, { getState, rejectWithValue }) => {
+  try {
+    const token = getState().auth.user?.token;
+    const response = await axiosApi.delete("/users/logout", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const message = response.data.message;
+    toast.success(message);
+  } catch (error) {
+    if (isAxiosError(error)) {
+      if (error.response) {
+        rejectWithValue(error.response.data);
       }
     }
 

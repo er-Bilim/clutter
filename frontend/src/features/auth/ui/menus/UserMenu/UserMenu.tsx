@@ -2,15 +2,29 @@ import Box from "@mui/material/Box";
 import { NavLink } from "react-router-dom";
 import { navActiveStyle, styleNavLink } from "../style";
 import Button from "@mui/material/Button";
-import { useAppDispatch } from "../../../../../shared/lib/redux/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../shared/lib/redux/hooks";
 import { unsetUser } from "../../../model/slice";
+import { logout } from "../../../model/thunks";
+import { selectLogoutError } from "../../../model/selectors";
+import { toast } from "react-toastify";
 
 const UserMenu = () => {
   const dispatch = useAppDispatch();
+  const logoutError = useAppSelector(selectLogoutError);
+
+  if (logoutError) {
+    toast.error(logoutError.error);
+  }
 
   const handleLogout = () => {
     try {
-      dispatch(unsetUser());
+      dispatch(logout()).unwrap();
+      if (!logoutError) {
+        dispatch(unsetUser());
+      }
     } catch (error) {
       console.error(error);
     }
