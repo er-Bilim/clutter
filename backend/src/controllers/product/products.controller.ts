@@ -48,7 +48,7 @@ const ProductController = {
       category: body.category,
       title: body.title,
       description: body.description,
-      price: body.price,
+      price: Number(body.price),
       image: req.file ? `/images/${req.file.filename}` : null,
     };
     try {

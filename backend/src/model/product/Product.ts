@@ -36,7 +36,7 @@ const ProductSchema = new Schema({
   },
   description: {
     type: String,
-    required: false,
+    required: true,
     minLength: [5, "Description must be at least 3 characters long"],
     maxLength: [500, "Description must be at most 500 characters long"],
   },
@@ -48,7 +48,7 @@ const ProductSchema = new Schema({
   },
   image: {
     type: String,
-    required: false,
+    required: true,
   },
   created_at: {
     type: Date,
