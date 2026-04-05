@@ -4,13 +4,17 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { IUserRegister } from "../../../../../../../backend/src/types/user.types";
-import { useAppDispatch } from "../../../../../shared/lib/redux/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../shared/lib/redux/hooks";
 import { register } from "../../../model/thunks";
 import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
+import { selectRegisterLoading } from "../../../model/selectors";
 
 const schemaRegister = z.object({
   username: z
@@ -47,6 +51,7 @@ type RegisterFormData = z.infer<typeof schemaRegister>;
 const RegisterForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const registerLoading = useAppSelector(selectRegisterLoading);
 
   const {
     register: inputRegister,
@@ -154,6 +159,7 @@ const RegisterForm = () => {
           type="submit"
           variant="contained"
           sx={{ mt: 2, width: "100%", background: grey[900] }}
+          loading={registerLoading}
         >
           Sign up
         </Button>

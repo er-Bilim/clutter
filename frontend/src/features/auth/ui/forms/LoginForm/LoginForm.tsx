@@ -3,7 +3,10 @@ import TextField from "@mui/material/TextField";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppDispatch } from "../../../../../shared/lib/redux/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../shared/lib/redux/hooks";
 import { login } from "../../../model/thunks";
 import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
@@ -11,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import type { ILoginMutation } from "../../../model/types";
 import Typography from "@mui/material/Typography";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import { selectLoginLoading } from "../../../model/selectors";
 
 const schemaLogin = z.object({
   username: z
@@ -33,6 +37,7 @@ type RegisterFormData = z.infer<typeof schemaLogin>;
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
+  const loginLoading = useAppSelector(selectLoginLoading);
   const navigate = useNavigate();
 
   const {
@@ -117,6 +122,7 @@ const LoginForm = () => {
           type="submit"
           variant="contained"
           sx={{ mt: 2, width: "100%", background: grey[900] }}
+          loading={loginLoading}
         >
           Sign in
         </Button>
