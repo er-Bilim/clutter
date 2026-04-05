@@ -20,7 +20,7 @@ const UserMenu = () => {
     <Box sx={{ display: "flex", flexDirection: "row", gap: 5 }}>
       <Box
         component={NavLink}
-        to={"/add-item"}
+        to={"product/add"}
         style={({ isActive }) => (isActive ? navActiveStyle : undefined)}
         sx={styleNavLink}
       >

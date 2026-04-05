@@ -4,7 +4,12 @@ import type {
   IValidationError,
 } from "../../../shared/types/error.types";
 import type { IProduct } from "./types";
-import { deleteProduct, getAllProducts, getProductByID } from "./thunk";
+import {
+  createProduct,
+  deleteProduct,
+  getAllProducts,
+  getProductByID,
+} from "./thunk";
 
 interface ProductState {
   products: IProduct[];
@@ -70,6 +75,20 @@ export const productSlice = createSlice({
     builder.addCase(getProductByID.rejected, (state, { payload: error }) => {
       state.loading.fetchLoading = false;
       state.errors.fetchError = error || null;
+    });
+
+    builder.addCase(createProduct.pending, (state) => {
+      state.loading.createLoading = true;
+      state.errors.createError = null;
+    });
+
+    builder.addCase(createProduct.fulfilled, (state) => {
+      state.loading.createLoading = false;
+    });
+
+    builder.addCase(createProduct.rejected, (state, { payload: error }) => {
+      state.loading.createLoading = false;
+      state.errors.createError = error || null;
     });
 
     builder.addCase(deleteProduct.pending, (state) => {

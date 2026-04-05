@@ -8,6 +8,7 @@ import { useAppSelector } from "./shared/lib/redux/hooks";
 import { selectUser } from "./features/auth/model/selectors";
 import DetailProduct from "./pages/Products/DetailProduct";
 import NotFound from "./shared/ui/NotFound/NotFound";
+import AddProductPage from "./pages/AddProductPage/AddProductPage";
 
 const App = () => {
   const user = useAppSelector(selectUser);
@@ -18,6 +19,15 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Products />} />
           <Route path="/product/:id" element={<DetailProduct />} />
+          <Route
+            path="/product/add"
+            element={
+              <ProtectedRouter isAuth={Boolean(user)}>
+                <AddProductPage />
+              </ProtectedRouter>
+            }
+          />
+
           <Route
             path="/signup"
             element={
@@ -34,7 +44,7 @@ const App = () => {
               </ProtectedRouter>
             }
           />
-          <Route path="*" element={<NotFound/>}/>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </MainLayout>
     </>

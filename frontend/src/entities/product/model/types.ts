@@ -9,3 +9,11 @@ export interface IProduct {
   price: number;
   image: string;
 }
+
+export interface IProductMutation {
+  category: string;
+  title: string;
+  description: string;
+  price: string;
+  image: File;
+}
